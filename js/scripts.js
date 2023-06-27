@@ -4,24 +4,27 @@ const app = Vue.createApp({
     data() {
         return {
             numOfEmails: 10,
-            emails: []
+            emails: [],
+            isLoading: false
         }
     },
     methods: {
-        generateEmail() {
-            axios.get(url)
-                .then(r => {
-                    const response = r.data.response;
-                    this.emails.push(response);
-                }).catch(e => {
-                    console.error(e.message);
-                });
+        async generateEmail() {
+            this.isLoading = true;
+            for (let i = 0; i < this.numOfEmails; i++) {
+                await axios.get(url)
+                    .then(r => {
+                        const response = r.data.response;
+                        this.emails.push(response);
+                    }).catch(e => {
+                        console.error(e.message);
+                    })
+            }
+            this.isLoading = false;
         }
     },
     mounted() {
-        for (let i = 0; i < this.numOfEmails; i++) {
-            this.generateEmail();
-        }
+        this.generateEmail();
     }
 });
 

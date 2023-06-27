@@ -46,8 +46,8 @@
                 API</a></p>
 
         <!-- LIST -->
-        <ul
-            class="row row-cols-1 row-cols-md-4 row-cols-lg-5 gy-3 list-unstyled justify-content-center">
+        <ul v-if="!isLoading"
+            class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-5 gy-3 list-unstyled justify-content-center">
 
             <!-- V-FOR -->
             <li class="col" v-for="email in emails">
@@ -57,8 +57,13 @@
                     </div>
                 </div>
             </li>
-
         </ul>
+
+        <!-- LOADER -->
+        <div v-else class="text-center pt-5">
+            <i class=" fa-solid fa-spinner fa-spin fa-2xl"></i>
+        </div>
+
     </div>
 
 
